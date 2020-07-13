@@ -40,7 +40,11 @@ namespace CSharpStudy.Multiply
                 if (result.IsValid)
                 {
                     WriteLog($"OK   ", ConsoleColor.Green);
-                    WriteLog($"m {Math.Round(result.TickMean),-10} stdev {Math.Round(result.TickStDev),-10}\n");
+                    WriteLog(
+                        $"min {Math.Round(result.TickMin),-10} " +
+                        $"avg {Math.Round(result.TickMean),-10} " +
+                        $"max {Math.Round(result.TickMax),-10} " +
+                        $"stdev {Math.Round(result.TickStDev),-10}\n");
                 }
                 else
                 {

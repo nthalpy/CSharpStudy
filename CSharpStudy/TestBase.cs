@@ -35,7 +35,9 @@ namespace CSharpStudy
             {
                 IsValid = true,
                 MemoryUsage = mem,
+                TickMin = tickList.Min(),
                 TickMean = mean,
+                TickMax = tickList.Max(),
                 TickStDev = stdev,
                 DiagnosticsMessage = String.Empty,
             };
