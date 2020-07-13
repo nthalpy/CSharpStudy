@@ -2,7 +2,7 @@
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class FloatMultiplyTest : TestBase
+    public sealed class FloatMultiply : TestBase
     {
         private Random rd;
 

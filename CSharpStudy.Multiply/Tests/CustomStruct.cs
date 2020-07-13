@@ -2,7 +2,7 @@
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class CustomStructTest : TestBase
+    public sealed class CustomStruct : TestBase
     {
         public struct Complex
         {
@@ -17,11 +17,10 @@ namespace CSharpStudy.Multiply.Tests
 
             public static Complex operator *(Complex lhs, Complex rhs)
             {
-                return new Complex
-                {
-                    Real = lhs.Real * rhs.Real - lhs.Imag * rhs.Imag,
-                    Imag = lhs.Real * rhs.Imag + lhs.Imag * rhs.Real
-                };
+                return new Complex(
+                    lhs.Real * rhs.Real - lhs.Imag * rhs.Imag,
+                    lhs.Real * rhs.Imag + lhs.Imag * rhs.Real
+                );
             }
 
             public static bool operator !=(Complex lhs, Complex rhs)

@@ -2,7 +2,7 @@
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class Int32MultiplyTest : TestBase
+    public sealed class Int32Multiply : TestBase
     {
         private Random rd;
 
