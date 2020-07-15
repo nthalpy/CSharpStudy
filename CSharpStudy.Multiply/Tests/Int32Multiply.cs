@@ -10,7 +10,7 @@ namespace CSharpStudy.Multiply.Tests
         {
             rd = new Random(114514);
 
-            Solution.Prepare<Int32, Int32, Int32>();
+            Solution<Int32, Int32, Int32>.Prepare();
         }
 
         public override void TestRoutine()
@@ -21,7 +21,7 @@ namespace CSharpStudy.Multiply.Tests
                 int rhs = rd.Next();
 
                 int expected = lhs * rhs;
-                int actual = Solution.Multiply<Int32, Int32, Int32>(lhs, rhs);
+                int actual = Solution<Int32, Int32, Int32>.Multiply(lhs, rhs);
 
                 if (expected != actual)
                     throw new TestFailException(expected, actual);

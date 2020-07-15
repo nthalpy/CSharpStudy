@@ -49,7 +49,7 @@ namespace CSharpStudy.Multiply.Tests
         {
             rd = new Random(114514);
 
-            Solution.Prepare<Complex, Complex, Complex>();
+            Solution<Complex, Complex, Complex>.Prepare();
         }
 
         public override void TestRoutine()
@@ -60,7 +60,7 @@ namespace CSharpStudy.Multiply.Tests
                 Complex rhs = new Complex(rd.NextDouble(), rd.NextDouble());
 
                 Complex expected = lhs * rhs;
-                Complex actual = Solution.Multiply<Complex, Complex, Complex>(lhs, rhs);
+                Complex actual = Solution<Complex, Complex, Complex>.Multiply(lhs, rhs);
 
                 if (expected != actual)
                     throw new TestFailException(expected, actual);
