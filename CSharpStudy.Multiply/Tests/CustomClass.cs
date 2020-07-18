@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BenchmarkDotNet.Attributes;
+using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class CustomClass : TestBase
+    [SimpleJob(warmupCount: 25, targetCount: 100)]
+    public class CustomClass
     {
         public sealed class Complex
         {
@@ -43,28 +45,31 @@ namespace CSharpStudy.Multiply.Tests
             }
         }
 
-        private Random rd;
+        private Complex lhs;
+        private Complex rhs;
 
-        public override void Prepare()
+        public CustomClass()
         {
-            rd = new Random(114514);
+            Random rd = new Random();
 
+            lhs = new Complex(rd.NextDouble(), rd.NextDouble());
+            rhs = new Complex(rd.NextDouble(), rd.NextDouble());
+        }
+
+        [GlobalSetup]
+        public void Setup()
+        {
             Solution<Complex, Complex, Complex>.Prepare();
         }
 
-        public override void TestRoutine()
+        [Benchmark]
+        public void MainRoutine()
         {
-            for (int idx = 0; idx < 1000000; idx++)
-            {
-                Complex lhs = new Complex(rd.NextDouble(), rd.NextDouble());
-                Complex rhs = new Complex(rd.NextDouble(), rd.NextDouble());
+            Complex expected = lhs * rhs;
+            Complex actual = Solution<Complex, Complex, Complex>.Multiply(lhs, rhs);
 
-                Complex expected = lhs * rhs;
-                Complex actual = Solution<Complex, Complex, Complex>.Multiply(lhs, rhs);
-
-                if (expected != actual)
-                    throw new TestFailException(expected, actual);
-            }
+            if (expected != actual)
+                throw new TestFailException(expected, actual);
         }
     }
 }

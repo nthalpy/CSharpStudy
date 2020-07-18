@@ -1,31 +1,36 @@
-﻿using System;
+﻿using BenchmarkDotNet.Attributes;
+using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class FloatMultiply : TestBase
+    [SimpleJob(warmupCount: 25, targetCount: 100)]
+    public class FloatMultiply
     {
-        private Random rd;
+        private float lhs;
+        private float rhs;
 
-        public override void Prepare()
+        public FloatMultiply()
         {
-            rd = new Random(114514);
+            Random rd = new Random();
 
+            lhs = (float)rd.NextDouble();
+            rhs = (float)rd.NextDouble();
+        }
+
+        [GlobalSetup]
+        public void Setup()
+        {
             Solution<Single, Single, Single>.Prepare();
         }
 
-        public override void TestRoutine()
+        [Benchmark]
+        public void MainRoutine()
         {
-            for (int idx = 0; idx < 1000000; idx++)
-            {
-                Single lhs = (Single)rd.NextDouble();
-                Single rhs = (Single)rd.NextDouble();
+            Single expected = lhs * rhs;
+            Single actual = Solution<Single, Single, Single>.Multiply(lhs, rhs);
 
-                Single expected = lhs * rhs;
-                Single actual = Solution<Single, Single, Single>.Multiply(lhs, rhs);
-
-                if (expected != actual)
-                    throw new TestFailException(expected, actual);
-            }
+            if (expected != actual)
+                throw new TestFailException(expected, actual);
         }
     }
 }

@@ -8,7 +8,7 @@
 
         public static T3 Multiply(T1 lhs, T2 rhs)
         {
-            return (dynamic)lhs + (dynamic)rhs;
+            return (dynamic)lhs * (dynamic)rhs;
         }
     }
 }

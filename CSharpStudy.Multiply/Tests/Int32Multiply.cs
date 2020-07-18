@@ -1,31 +1,36 @@
-﻿using System;
+﻿using BenchmarkDotNet.Attributes;
+using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
-    public sealed class Int32Multiply : TestBase
+    [SimpleJob(warmupCount: 25, targetCount: 100)]
+    public class Int32Multiply
     {
-        private Random rd;
+        private int lhs;
+        private int rhs;
 
-        public override void Prepare()
+        public Int32Multiply()
         {
-            rd = new Random(114514);
+            Random rd = new Random();
 
+            lhs = rd.Next();
+            rhs = rd.Next();
+        }
+
+        [GlobalSetup]
+        public void Setup()
+        {
             Solution<Int32, Int32, Int32>.Prepare();
         }
 
-        public override void TestRoutine()
+        [Benchmark]
+        public void MainRoutine()
         {
-            for (int idx = 0; idx < 1000000; idx++)
-            {
-                int lhs = rd.Next();
-                int rhs = rd.Next();
+            int expected = lhs * rhs;
+            int actual = Solution<Int32, Int32, Int32>.Multiply(lhs, rhs);
 
-                int expected = lhs * rhs;
-                int actual = Solution<Int32, Int32, Int32>.Multiply(lhs, rhs);
-
-                if (expected != actual)
-                    throw new TestFailException(expected, actual);
-            }
+            if (expected != actual)
+                throw new TestFailException(expected, actual);
         }
     }
 }
