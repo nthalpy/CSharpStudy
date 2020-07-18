@@ -24,9 +24,12 @@ namespace CSharpStudy.Multiply
             {
                 TestName = report.BenchmarkCase.Descriptor.Type.Name;
 
-                Mean = report.ResultStatistics.Mean;
-                Error = report.ResultStatistics.StandardError;
-                Stdev = report.ResultStatistics.StandardDeviation;
+                if (report.ResultStatistics != null)
+                {
+                    Mean = report.ResultStatistics.Mean;
+                    Error = report.ResultStatistics.StandardError;
+                    Stdev = report.ResultStatistics.StandardDeviation;
+                }
 
                 Success = report.Success;
             }
