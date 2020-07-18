@@ -4,7 +4,6 @@ using System;
 namespace CSharpStudy.Multiply.Tests
 {
     [MemoryDiagnoser]
-    [SimpleJob(warmupCount: 25, targetCount: 100)]
     public class FloatMultiply
     {
         private Random rd;
