@@ -3,18 +3,15 @@ using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
+    [MemoryDiagnoser]
     [SimpleJob(warmupCount: 25, targetCount: 100)]
     public class FloatMultiply
     {
-        private float lhs;
-        private float rhs;
+        private Random rd;
 
         public FloatMultiply()
         {
-            Random rd = new Random();
-
-            lhs = (float)rd.NextDouble();
-            rhs = (float)rd.NextDouble();
+            rd = new Random();
         }
 
         [GlobalSetup]
@@ -26,6 +23,9 @@ namespace CSharpStudy.Multiply.Tests
         [Benchmark]
         public void MainRoutine()
         {
+            Single lhs = (Single)rd.NextDouble();
+            Single rhs = (Single)rd.NextDouble();
+
             Single expected = lhs * rhs;
             Single actual = Solution<Single, Single, Single>.Multiply(lhs, rhs);
 

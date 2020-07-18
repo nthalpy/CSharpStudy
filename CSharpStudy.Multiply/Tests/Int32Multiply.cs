@@ -1,20 +1,18 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
 using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
+    [MemoryDiagnoser]
     [SimpleJob(warmupCount: 25, targetCount: 100)]
     public class Int32Multiply
     {
-        private int lhs;
-        private int rhs;
+        private Random rd;
 
         public Int32Multiply()
         {
-            Random rd = new Random();
-
-            lhs = rd.Next();
-            rhs = rd.Next();
+            rd = new Random();
         }
 
         [GlobalSetup]
@@ -26,6 +24,9 @@ namespace CSharpStudy.Multiply.Tests
         [Benchmark]
         public void MainRoutine()
         {
+            int lhs = rd.Next();
+            int rhs = rd.Next();
+
             int expected = lhs * rhs;
             int actual = Solution<Int32, Int32, Int32>.Multiply(lhs, rhs);
 

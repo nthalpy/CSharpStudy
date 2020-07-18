@@ -1,6 +1,6 @@
 ﻿namespace CSharpStudy.Multiply
 {
-    public static partial class Solution<T1, T2, T3>
+    public static class Solution<T1, T2, T3>
     {
         public static void Prepare()
         {

@@ -3,6 +3,7 @@ using System;
 
 namespace CSharpStudy.Multiply.Tests
 {
+    [MemoryDiagnoser]
     [SimpleJob(warmupCount: 25, targetCount: 100)]
     public class CustomStruct
     {
@@ -45,15 +46,11 @@ namespace CSharpStudy.Multiply.Tests
             }
         }
 
-        private Complex lhs;
-        private Complex rhs;
+        private Random rd;
 
         public CustomStruct()
         {
-            Random rd = new Random();
-
-            lhs = new Complex(rd.NextDouble(), rd.NextDouble());
-            rhs = new Complex(rd.NextDouble(), rd.NextDouble());
+            rd = new Random();
         }
 
         [GlobalSetup]
@@ -65,6 +62,9 @@ namespace CSharpStudy.Multiply.Tests
         [Benchmark]
         public void MainRoutine()
         {
+            Complex lhs = new Complex(rd.NextDouble(), rd.NextDouble());
+            Complex rhs = new Complex(rd.NextDouble(), rd.NextDouble());
+
             Complex expected = lhs * rhs;
             Complex actual = Solution<Complex, Complex, Complex>.Multiply(lhs, rhs);
 
