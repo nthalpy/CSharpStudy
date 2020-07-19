@@ -49,6 +49,7 @@ namespace CSharpStudy.Multiply.Tests
             rd = new Random();
         }
 
+        [GlobalSetup]
         public void Setup()
         {
             Solution<Double, Complex, Complex>.Prepare();
