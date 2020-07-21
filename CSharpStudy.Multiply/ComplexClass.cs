@@ -1,10 +1,8 @@
-﻿using Microsoft.Diagnostics.Tracing.Parsers.Clr;
-using System;
-using System.Management;
+﻿using System;
 
 namespace CSharpStudy.Multiply
 {
-    public sealed class ComplexClass
+    public sealed class ComplexClass : IEquatable<ComplexClass>
     {
         private double real;
         private double imag;
@@ -31,15 +29,9 @@ namespace CSharpStudy.Multiply
             );
         }
 
-        public override bool Equals(Object obj)
+        public bool Equals(ComplexClass other)
         {
-            return obj is ComplexClass complex &&
-                   real == complex.real &&
-                   imag == complex.imag;
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(real, imag);
+            return this.real == other.real && this.imag == other.imag;
         }
 
         public override string ToString()

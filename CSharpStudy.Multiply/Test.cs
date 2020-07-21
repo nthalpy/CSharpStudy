@@ -11,7 +11,7 @@ namespace CSharpStudy.Multiply
     [GenericTypeArguments(typeof(ComplexClass), typeof(ComplexClass), typeof(ComplexClass))]
     [GenericTypeArguments(typeof(ComplexStruct), typeof(ComplexStruct), typeof(ComplexStruct))]
     [GenericTypeArguments(typeof(Double), typeof(ComplexClass), typeof(ComplexClass))]
-    public class Test<T1, T2, T3>
+    public class Test<T1, T2, T3> where T3 : IEquatable<T3>
     {
         private const int ArrLength = 512;
 
