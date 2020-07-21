@@ -25,7 +25,15 @@ namespace CSharpStudy
 
             public Result(BenchmarkReport report)
             {
-                TestName = report.BenchmarkCase.Descriptor.Type.Name;
+                Type testType = report.BenchmarkCase.Descriptor.Type;
+                if (testType.IsGenericType)
+                {
+                    TestName = $"{testType.Name}<{String.Join(", ", testType.GetGenericArguments().Select(t => t.Name))}>";
+                }
+                else
+                {
+                    TestName = testType.Name;
+                }
 
                 if (report.ResultStatistics != null)
                 {
