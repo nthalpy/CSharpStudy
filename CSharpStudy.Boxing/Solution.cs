@@ -1,4 +1,6 @@
-﻿namespace CSharpStudy.Boxing
+﻿using System;
+
+namespace CSharpStudy.Boxing
 {
     /// <summary>
     /// 이번 과제는 Compare 함수에서 
@@ -20,7 +22,7 @@
         /// <summary>
         /// lhs.Equals(rhs)의 결과와 같은 결과를 리턴하는 함수.
         /// </summary>
-        public static bool Compare(T lhs, T rhs)
+        public static bool Compare(Object lhs, Object rhs)
         {
             return lhs.Equals(rhs);
         }

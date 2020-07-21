@@ -1,4 +1,6 @@
-﻿namespace CSharpStudy.Boxing
+﻿using System;
+
+namespace CSharpStudy.Boxing
 {
     public struct NonEqutableOverridedStruct
     {
@@ -11,7 +13,11 @@
         private double a;
         private double b;
 
-        public override bool Equals(object obj)
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(a, b);
+        }
+        public override bool Equals(Object obj)
         {
             if (obj is NonEqutableOverridedStruct)
             {
