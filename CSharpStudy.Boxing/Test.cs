@@ -5,7 +5,7 @@ using System.Linq;
 namespace CSharpStudy.Boxing
 {
     [MemoryDiagnoser]
-    [DisassemblyDiagnoser(maxDepth: 10, printSource: true)]
+    [DisassemblyDiagnoser(maxDepth: 10, printSource: true, printInstructionAddresses: true)]
     [GenericTypeArguments(typeof(Int32))]
     [GenericTypeArguments(typeof(String))]
     [GenericTypeArguments(typeof(EqutableStruct))]

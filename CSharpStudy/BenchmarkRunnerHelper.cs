@@ -72,8 +72,9 @@ namespace CSharpStudy
 
         private static IConfig GetConfig()
         {
-            return DefaultConfig.Instance
-                .WithOption(ConfigOptions.JoinSummary, true);
+            return new DebugInProcessConfig()
+                .WithOption(ConfigOptions.JoinSummary, true)
+                .WithOption(ConfigOptions.DisableOptimizationsValidator, true);
         }
     }
 }
