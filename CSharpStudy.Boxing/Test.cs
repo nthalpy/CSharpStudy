@@ -9,8 +9,7 @@ namespace CSharpStudy.Boxing
     [GenericTypeArguments(typeof(Int32))]
     [GenericTypeArguments(typeof(String))]
     [GenericTypeArguments(typeof(EqutableStruct))]
-    [GenericTypeArguments(typeof(NonEqutableOverridedStruct))]
-    [GenericTypeArguments(typeof(NonEqutableNonOverridedStruct))]
+    [GenericTypeArguments(typeof(EqualsOverridedStruct))]
     public class Test<T>
     {
         private const int ValueArrLength = 512;
@@ -49,13 +48,9 @@ namespace CSharpStudy.Boxing
             {
                 return (T)(Object)new EqutableStruct(rd.NextDouble(), rd.NextDouble());
             }
-            else if (typeof(T) == typeof(NonEqutableOverridedStruct))
+            else if (typeof(T) == typeof(EqualsOverridedStruct))
             {
-                return (T)(Object)new NonEqutableOverridedStruct(rd.NextDouble(), rd.NextDouble());
-            }
-            else if (typeof(T) == typeof(NonEqutableNonOverridedStruct))
-            {
-                return (T)(Object)new NonEqutableNonOverridedStruct(rd.NextDouble(), rd.NextDouble());
+                return (T)(Object)new EqualsOverridedStruct(rd.NextDouble(), rd.NextDouble());
             }
             else
             {

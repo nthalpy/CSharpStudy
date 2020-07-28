@@ -2,9 +2,9 @@
 
 namespace CSharpStudy.Boxing
 {
-    public struct NonEqutableOverridedStruct
+    public struct EqualsOverridedStruct
     {
-        public NonEqutableOverridedStruct(double a, double b)
+        public EqualsOverridedStruct(double a, double b)
         {
             this.a = a;
             this.b = b;
@@ -19,9 +19,9 @@ namespace CSharpStudy.Boxing
         }
         public override bool Equals(Object obj)
         {
-            if (obj is NonEqutableOverridedStruct)
+            if (obj is EqualsOverridedStruct)
             {
-                NonEqutableOverridedStruct other = (NonEqutableOverridedStruct)obj;
+                EqualsOverridedStruct other = (EqualsOverridedStruct)obj;
                 return this.a == other.a && this.b == other.b;
             }
 
