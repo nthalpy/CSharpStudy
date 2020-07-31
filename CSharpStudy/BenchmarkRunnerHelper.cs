@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -72,7 +71,7 @@ namespace CSharpStudy
 
         private static IConfig GetConfig()
         {
-            return new DebugInProcessConfig()
+            return DefaultConfig.Instance
                 .WithOption(ConfigOptions.JoinSummary, true)
                 .WithOption(ConfigOptions.DisableOptimizationsValidator, true);
         }
