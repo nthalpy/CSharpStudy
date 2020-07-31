@@ -1,10 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
 using System;
 using System.Linq;
 
 namespace CSharpStudy.Boxing
 {
     [MemoryDiagnoser]
+    [SimpleJob(RunStrategy.Throughput, targetCount: 10)]
     [DisassemblyDiagnoser(maxDepth: 10, printSource: true, printInstructionAddresses: true)]
     [GenericTypeArguments(typeof(Int32))]
     [GenericTypeArguments(typeof(String))]
