@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using System;
-using System.Linq;
 
 namespace CSharpStudy.Boxing
 {
@@ -12,12 +11,14 @@ namespace CSharpStudy.Boxing
     [GenericTypeArguments(typeof(String))]
     [GenericTypeArguments(typeof(EqutableStruct))]
     [GenericTypeArguments(typeof(EqualsOverridedStruct))]
+    [GenericTypeArguments(typeof(EqualsOverridedStruct2))]
     public class Test<T>
     {
         private const int ValueArrLength = 512;
 
         private readonly Random rd;
         private readonly T[] cachedValueArr;
+        private readonly bool[,] equalityTable;
 
         public Test()
         {
@@ -25,18 +26,15 @@ namespace CSharpStudy.Boxing
 
             cachedValueArr = new T[ValueArrLength];
             for (int idx = 0; idx < ValueArrLength; idx++)
-            {
-                T newValue;
-                do
-                {
-                    newValue = CreateRandomValue(rd);
-                } while (cachedValueArr.Contains(newValue));
+                cachedValueArr[idx] = CreateRandomValue();
 
-                cachedValueArr[idx] = newValue;
-            }
+            equalityTable = new bool[ValueArrLength, ValueArrLength];
+            for (int idx = 0; idx < ValueArrLength; idx++)
+                for (int jdx = 0; jdx < ValueArrLength; jdx++)
+                    equalityTable[idx, jdx] = cachedValueArr[idx].Equals(cachedValueArr[jdx]);
         }
 
-        private T CreateRandomValue(Random rd)
+        private T CreateRandomValue()
         {
             if (typeof(T) == typeof(String))
             {
@@ -54,6 +52,10 @@ namespace CSharpStudy.Boxing
             {
                 return (T)(Object)new EqualsOverridedStruct(rd.NextDouble(), rd.NextDouble());
             }
+            else if (typeof(T) == typeof(EqualsOverridedStruct2))
+            {
+                return (T)(Object)new EqualsOverridedStruct2(rd.NextDouble(), rd.NextDouble());
+            }
             else
             {
                 throw new NotImplementedException();
@@ -69,13 +71,10 @@ namespace CSharpStudy.Boxing
         [Benchmark]
         public void Compare()
         {
-            // Note: 
-            // make sure lhsIndex != rhsIndex implies cachedValueArr[lhsIndex] != cachedValueArr[rhsIndex]
-
             int lhsIndex = rd.Next(ValueArrLength);
             int rhsIndex = rd.Next(ValueArrLength);
 
-            bool expected = lhsIndex == rhsIndex;
+            bool expected = equalityTable[lhsIndex, rhsIndex];
             bool actual = Solution<T>.Compare(cachedValueArr[lhsIndex], cachedValueArr[rhsIndex]);
 
             if (expected != actual)
